@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Project</title>
+</head>
+<body>
+    <h2 style="text-align: center; width: fit-content; border: 2px solid red; margin: 0 auto">Barcha yangiliklar</h2>
+    {% for new in news %}
+        <a href="{% url 'news_detail' new.pk %}">{{ new.title}}</a>
+        <br>
+    {% endfor %}
+</body>
+</html>

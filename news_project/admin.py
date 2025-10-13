@@ -1,0 +1,17 @@
+from django.contrib import admin
+from .models import News, Category
+
+# admin.site.register(Category)
+# admin.site.register(News)
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
+
+@admin.register(News)
+class News(admin.ModelAdmin):
+    list_display = ['title', 'status', 'created_at']
+    list_filter = ['title', 'status']
+    date_hierarchy = 'created_at'
+    prepopulated_fields = {'slug': ('title',)}
+    search_fields = ['title']
