@@ -6,10 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>{{news_detail.title}}</h2>
-    <br>
-    <p>{{news_detail.body}}</p>
-    <br>
-    <a href="{% url 'all_news'%}">Barcha yangiliklar</a>
+    <div style="text-align: center;">
+        <h2>BATAFSIL</h2>
+        <br>
+        <h3 style="font-weight: bold; text-align: center;">{{news_detail.title}}</h3>
+        <br>
+        <p style="text-align: left; margin-left: 10px;">{{news_detail.body}}</p>
+        <img src="{{news_detail.image.url}}" alt="">
+    </div>
 </body>
 </html>
