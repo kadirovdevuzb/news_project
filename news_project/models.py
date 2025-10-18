@@ -23,6 +23,7 @@ class News(models.Model):
 
     class Meta:
         ordering = ["-published_at"]
+        verbose_name_plural = "News"
 
     def __str__(self):
         return self.title

@@ -10,7 +10,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(News)
 class News(admin.ModelAdmin):
-    list_display = ['title', 'status', 'created_at']
+    list_display = ['title', 'status', 'created_at', 'category']
     list_filter = ['title', 'status']
     date_hierarchy = 'created_at'
     prepopulated_fields = {'slug': ('title',)}
