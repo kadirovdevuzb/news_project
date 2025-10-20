@@ -23,10 +23,35 @@ def news_detail(request, pk):
 
 def home_page_view(request):
     categories = Category.objects.all()
+
     news = News.objects.all()
+
+    latest_news = News.objects.all().order_by("-published_at")[:6]
+
+    uzb_news_last = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact ="o'zbekiston")[0]
+    uzb_news = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact = "o'zbekiston")[1:5]
+
+    jahon_news_last = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact = "jahon")[0]
+    jahon_news = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact = "jahon")[1:5]
+
+    tech_news_last = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact = "texnologiya")[0]
+    tech_news = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact = "texnologiya")[1:5]
+
+    sport_news_last = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact = "sport")[0]
+    sport_news = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact = "sport")[1:5]
+
     context = {
         'categories': categories,
-        'news': news
+        'news': news,
+        'latest_news': latest_news,
+        'uzb_news_last': uzb_news_last,
+        'uzb_news': uzb_news,
+        'jahon_news_last': jahon_news_last,
+        'jahon_news': jahon_news,
+        'tech_news_last': tech_news_last,
+        'tech_news': tech_news,
+        'sport_news_last': sport_news_last,
+        'sport_news': sport_news
     }
     return render(request, 'news/index.html', context)
 
@@ -46,7 +71,6 @@ def about_view(request):
     categories = Category.objects.all()
     context = {
         'categories': categories,
-        'news': news,
     }
     return render(request, 'news/about.html', context)
 
