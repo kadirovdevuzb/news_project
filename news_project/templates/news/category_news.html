@@ -1,0 +1,16 @@
+{% extends 'news/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div style="margin-left: 30px">
+<center><h1>{{ ct_name }} yangiliklari</h1></center>
+{% for item in ct_news %}
+
+    <h3><a href="{% url 'news_detail' item.id%}">{{ item.title }}</h3>
+    <br>
+
+{% endfor %}
+</div>
+{% endblock content %}
+

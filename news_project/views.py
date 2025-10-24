@@ -82,3 +82,13 @@ def for_base_html(request):
         'news': news,
     }
     return render(request, 'news/base.html', context)
+
+def category_news(request, ct_name):
+    ct_news = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact=ct_name.lower()).order_by("-published_at")
+    
+    context = {
+        'ct_news': ct_news,
+        'ct_name': ct_name
+    }
+
+    return render(request, 'news/category_news.html', context)
