@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Category, News
 from .forms import ContactForm
 from django.http import HttpResponse
+from django.views.generic import UpdateView
+
 def all_news(request):
     news = News.objects.all()
     context = {
@@ -11,8 +13,8 @@ def all_news(request):
 
     return render(request, 'news/all_news.html', context)
 
-def news_detail(request, pk):
-    news = get_object_or_404(News, pk=pk)
+def news_detail(request, news):
+    news = get_object_or_404(News, slug=news)
     categories = Category.objects.all()
     context = {
         'news_detail': news,
@@ -40,6 +42,10 @@ def home_page_view(request):
     sport_news_last = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact = "sport")[0]
     sport_news = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact = "sport")[1:5]
 
+    moliya_news = News.objects.select_related("category").filter(status=News.Status.Published, category__name__iexact = "moliya")[1:5]
+    
+    images = News.objects.all().order_by("-published_at")[:6]
+
     context = {
         'categories': categories,
         'news': news,
@@ -51,7 +57,9 @@ def home_page_view(request):
         'tech_news_last': tech_news_last,
         'tech_news': tech_news,
         'sport_news_last': sport_news_last,
-        'sport_news': sport_news
+        'sport_news': sport_news,
+        'moliya_news': moliya_news,
+        'images': images,
     }
     return render(request, 'news/index.html', context)
 
@@ -92,3 +100,7 @@ def category_news(request, ct_name):
     }
 
     return render(request, 'news/category_news.html', context)
+
+# class EditView(UpdateView):
+#     model = News
+#     template_name = 
